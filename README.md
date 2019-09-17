@@ -2,11 +2,10 @@
 
 retrofit2 Rxjava 的MVP网络请求
 
-/**
- * Retrofit帮助类
- */
 
-public class RetrofitHelper {
+    //Retrofit帮助类
+
+    public class RetrofitHelper {
 
     private static OkHttpClient mClient;
     private Retrofit mRetrofit;
@@ -40,10 +39,7 @@ public class RetrofitHelper {
         if (mRetrofit == null) {
             mRetrofit = new Retrofit.Builder()
                     .baseUrl(GlobalConstantUrl.BASE_SERVER + "/")
-//                    .addConverterFactory(new NullOnEmptyConverterFactory())   //NullOnEmptyConverterFactory必需在GsonConverterFactory之前addConverterFactory
-//                    .addConverterFactory(GsonConverterFactory.create())  //添加Gson支持
                     //TODO 修改--java.lang.IllegalStateException: Fatal Exception thrown on Scheduler.Worker thread.
-//                    .addConverterFactory(GsonConverterFactory.create(new Gson()))  //添加Gson支持
                     .addConverterFactory(ScalarsConverterFactory.create())//首先判断是否需要转换成字符串，简单类型
                     .addConverterFactory(CustomGsonConverterFactory.create(new Gson()))  //再将转换成bean 添加Gson支持(自定义)
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())  //添加RxJava支持
@@ -70,13 +66,12 @@ public class RetrofitHelper {
         }
     }
 
-}
+    }
 
-/**
- * Okhttp帮助类
- */
 
-public class OkHttpClientHelper {
+ //Okhttp帮助类
+
+    public class OkHttpClientHelper {
 
     private final Cache cache;
     private OkHttpClient mClient;
@@ -112,15 +107,13 @@ public class OkHttpClientHelper {
         }
         return mClient;
     }
-}
+    }
 
 
+    // 网络请求工具类
 
-/**
- * 网络请求工具类
- */
 
-public class HttpUtils {
+    public class HttpUtils {
 
     private static INetService mService = getService();
 
@@ -150,33 +143,33 @@ public class HttpUtils {
         return mService;
     }
 
-}
+  }
 
 
-/**
- * service统一接口数据
- */
-public interface INetService {
+    /**
+     * service统一接口数据
+     */
+    public interface INetService {
 
     //POST请求  --(post无参时)
     @POST(GlobalConstantUrl.mainUrl)
     Observable<MainBean> getMainDataPost();
 
-      //POST请求  --(post传参时)
-//    @FormUrlEncoded
-//    @POST(GlobalConstantUrl.mainUrl)
-//    Observable<MainBean> getMainDataPost(@Field("page") int page,
-//                                         @Field("size") int size,
-//                                         @Field("order") String order,
-//                                         @Field("lat") String lat,
-//                                         @Field("lng") String lng);
+          //POST请求  --(post传参时)
+    //    @FormUrlEncoded
+    //    @POST(GlobalConstantUrl.mainUrl)
+    //    Observable<MainBean> getMainDataPost(@Field("page") int page,
+    //                                         @Field("size") int size,
+    //                                         @Field("order") String order,
+    //                                         @Field("lat") String lat,
+    //                                         @Field("lng") String lng);
 
-    //个人资料---(post上传图片)
-//    @Multipart
-//    @POST(GlobalConstantUrl.mainUrl)
-//    Observable<String> setPersonHeadImagePost(
-//            @Part("file\"; filename=\"avatar.jpg") RequestBody parts,
-//            @Part("rd3_key") String rd3_key);
+        //个人资料---(post上传图片)
+    //    @Multipart
+    //    @POST(GlobalConstantUrl.mainUrl)
+    //    Observable<String> setPersonHeadImagePost(
+    //            @Part("file\"; filename=\"avatar.jpg") RequestBody parts,
+    //            @Part("rd3_key") String rd3_key);
 
     @FormUrlEncoded
     @POST("mobile/index.php?act=member_cart&op=cart_add")
@@ -188,16 +181,16 @@ public interface INetService {
     Observable<SuccessBean> getVerfcationCodePostMap(@FieldMap Map<String, String> map);
 
     //GET请求，设置缓存
-//    @Headers("Cache-Control: public," + OtherConstants.CACHE_CONTROL_CACHE)
-    @GET("bjws/app.user/login")
-    Observable<SuccessBean> getVerfcationGetCache(@Query("tel") String tel,
-                                                  @Query("password") String password);
+    //    @Headers("Cache-Control: public," + OtherConstants.CACHE_CONTROL_CACHE)
+        @GET("bjws/app.user/login")
+        Observable<SuccessBean> getVerfcationGetCache(@Query("tel") String tel,
+                                                      @Query("password") String password);
 
     //GET请求 查询网络的Cache-Control设置。不使用缓存
-//    @Headers("Cache-Control: public," + OtherConstants.CACHE_CONTROL_NETWORK)
-    @GET("bjws/app.menu/getMenu")
-    Observable<SuccessBean> getMainMenu();
+    //    @Headers("Cache-Control: public," + OtherConstants.CACHE_CONTROL_NETWORK)
+        @GET("bjws/app.menu/getMenu")
+        Observable<SuccessBean> getMainMenu();
 
 
-}
+    }
 
