@@ -143,13 +143,13 @@ retrofit2 Rxjava 的MVP网络请求
             return mService;
         }
 
-      }
+    }
 
 
-        /**
-         * service统一接口数据
-         */
-        public interface INetService {
+    /**
+     * service统一接口数据
+     */
+    public interface INetService {
 
         //POST请求  --(post无参时)
         @POST(GlobalConstantUrl.mainUrl)
@@ -190,7 +190,6 @@ retrofit2 Rxjava 的MVP网络请求
         //    @Headers("Cache-Control: public," + OtherConstants.CACHE_CONTROL_NETWORK)
             @GET("bjws/app.menu/getMenu")
             Observable<SuccessBean> getMainMenu();
-
 
     }
 
